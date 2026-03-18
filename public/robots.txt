@@ -1,0 +1,13 @@
+# robots.txt for Lokmat Bharat
+# https://lokmatbharat.com/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private paths if any
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location (update if you have a sitemap)
+Sitemap: https://lokmatbharat.com/sitemap.xml
+
