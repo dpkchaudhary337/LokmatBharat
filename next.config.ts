@@ -10,14 +10,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // AMP support in Next.js 15
-  amp: {
-    canonicalBase: 'https://lokmatbharat.com',
-  },
-  // Disable script optimization for AMP pages to prevent modification
-  experimental: {
-    optimizePackageImports: [],
-  },
   // CDN Caching Headers for static assets
   async headers() {
     return [
