@@ -135,12 +135,17 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       // Add any custom redirects here with status: 301
-      // Example:
-      // {
-      //   source: '/old-path',
-      //   destination: '/new-path',
-      //   permanent: true, // This creates a 301 redirect
-      // },
+      // Redirect old /amp paths to root
+      {
+        source: '/amp',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/amp/:path*',
+        destination: '/:path*',
+        permanent: true,
+      },
     ];
   },
 };

@@ -1,5 +1,5 @@
 import Axios from "axios";
-import configData from "../../../lib/amp-config";
+import configData from "../../lib/amp-config";
 import Head from "next/head";
 
 // Next.js Pages Router AMP support
@@ -112,7 +112,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
       <>
         <Head>
           <title>Post Not Found | Lokmat Bharat</title>
-          <link rel="canonical" href={`https://lokmatbharat.com/details/${postSlug}`} />
+          <link rel="canonical" href={`${configData.CANONICAL_BASE}/details/${postSlug}`} />
         </Head>
         <style jsx global>{`
           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: #f5f5f5; }
@@ -123,7 +123,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
         `}</style>
         <nav className="main-navbar">
           <div className="navbar-inner">
-            <a href="/amp">
+            <a href="/">
               {settingData?.LogoLiveUrl ? (
                 <amp-img src={settingData.LogoLiveUrl} alt="Lokmat Bharat" width="130" height="50" layout="fixed"></amp-img>
               ) : (
@@ -135,7 +135,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
         <div className="container">
           <div className="content-section">
             <h1>Post Not Found</h1>
-            <p style={{ marginTop: "15px" }}><a href="/amp" style={{ color: "#a10509" }}>← Back to Home</a></p>
+            <p style={{ marginTop: "15px" }}><a href="/" style={{ color: "#a10509" }}>← Back to Home</a></p>
           </div>
         </div>
       </>
@@ -146,7 +146,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
   const rawDescription = post.DescriptionData?.[0]?.Translation || "";
   const cleanDescription = sanitizeForAMP(rawDescription);
   const mainImage = post.PostFiles?.[0]?.AssetLiveUrl || "/assets/images/no-image.png";
-  const canonicalUrl = `https://lokmatbharat.com/details/${postSlug}`;
+  const canonicalUrl = `${configData.CANONICAL_BASE}/details/${postSlug}`;
   const metaDescription = rawDescription.replace(/<[^>]*>/g, "").substring(0, 160);
 
   return (
@@ -405,7 +405,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
       {/* Navbar */}
       <nav className="main-navbar">
         <div className="navbar-inner">
-          <a href="/amp">
+          <a href="/">
             {settingData?.LogoLiveUrl ? (
               <amp-img src={settingData.LogoLiveUrl} alt="Lokmat Bharat" width="130" height="50" layout="fixed"></amp-img>
             ) : (
@@ -414,7 +414,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
           </a>
           <ul className="nav-menu">
             {menus.slice(0, 8).map((menu, i) => (
-              <li key={i}><a href={`/amp/category/${menu.Slug}`}>{menu.MenuTitle}</a></li>
+              <li key={i}><a href={`/category/${menu.Slug}`}>{menu.MenuTitle}</a></li>
             ))}
           </ul>
         </div>
@@ -489,7 +489,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
             </div>
             <div className="related-grid">
               {relatedNews.map((news, i) => (
-                <a key={i} href={`/amp/details/${news.Slug}`}>
+                <a key={i} href={`/details/${news.Slug}`}>
                   <div className="news-card">
                     <amp-img
                       src={news.PostFiles?.[0]?.AssetLiveUrl || "/assets/images/no-image.png"}
@@ -522,7 +522,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
             <h4>USEFUL LINKS</h4>
             <ul className="footer-links">
               {footerMenu.map((menu, i) => (
-                <li key={i}><a href={`/amp/${menu.Slug}`}>{menu.MenuTitle}</a></li>
+                <li key={i}><a href={`/${menu.Slug}`}>{menu.MenuTitle}</a></li>
               ))}
             </ul>
           </div>
@@ -537,7 +537,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
           <div>
             <h4>Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="/amp">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/">Regular Version</a></li>
             </ul>
           </div>

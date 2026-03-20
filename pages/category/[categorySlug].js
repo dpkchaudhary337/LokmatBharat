@@ -1,5 +1,5 @@
 import Axios from "axios";
-import configData from "../../../lib/amp-config";
+import configData from "../../lib/amp-config";
 import Head from "next/head";
 
 // Next.js Pages Router AMP support
@@ -66,7 +66,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
       <Head>
         <title>{categoryName} - Lokmat Bharat</title>
         <meta name="description" content={`Latest ${categoryName} news on Lokmat Bharat`} />
-        <link rel="canonical" href={`https://lokmatbharat.com/category/${categorySlug}`} />
+        <link rel="canonical" href={`${configData.CANONICAL_BASE}/category/${categorySlug}`} />
         <link rel="icon" href="/assets/images/favicon.ico" />
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
       </Head>
@@ -270,7 +270,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
       {/* Navbar */}
       <nav className="main-navbar">
         <div className="navbar-inner">
-          <a href="/amp">
+          <a href="/">
             {settingData?.LogoLiveUrl ? (
               <amp-img src={settingData.LogoLiveUrl} alt="Lokmat Bharat" width="130" height="50" layout="fixed"></amp-img>
             ) : (
@@ -280,7 +280,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
           <ul className="nav-menu">
             {menus.slice(0, 8).map((menu, i) => (
               <li key={i}>
-                <a href={`/amp/category/${menu.Slug}`} style={menu.Slug === categorySlug ? { background: "rgba(255,255,255,0.2)", borderRadius: "4px" } : {}}>
+                <a href={`/category/${menu.Slug}`} style={menu.Slug === categorySlug ? { background: "rgba(255,255,255,0.2)", borderRadius: "4px" } : {}}>
                   {menu.MenuTitle}
                 </a>
               </li>
@@ -300,7 +300,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
             {posts.length > 0 ? (
               <div className="news-grid">
                 {posts.map((post, i) => (
-                  <a key={i} href={`/amp/details/${post.Slug}`}>
+                  <a key={i} href={`/details/${post.Slug}`}>
                     <div className="news-card">
                       <amp-img
                         src={post.PostFiles?.[0]?.AssetLiveUrl || "/assets/images/no-image.png"}
@@ -347,7 +347,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
                 {menus.slice(0, 10).map((menu, i) => (
                   <li key={i} style={{ marginBottom: "8px" }}>
                     <a
-                      href={`/amp/category/${menu.Slug}`}
+                      href={`/category/${menu.Slug}`}
                       style={{
                         color: menu.Slug === categorySlug ? "#a10509" : "#333",
                         fontWeight: menu.Slug === categorySlug ? "700" : "400",
@@ -376,7 +376,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
             <h4>USEFUL LINKS</h4>
             <ul className="footer-links">
               {footerMenu.map((menu, i) => (
-                <li key={i}><a href={`/amp/${menu.Slug}`}>{menu.MenuTitle}</a></li>
+                <li key={i}><a href={`/${menu.Slug}`}>{menu.MenuTitle}</a></li>
               ))}
             </ul>
           </div>
@@ -391,7 +391,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
           <div>
             <h4>Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="/amp">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href={`/category/${categorySlug}`}>Regular Version</a></li>
             </ul>
           </div>

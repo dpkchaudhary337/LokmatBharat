@@ -1,5 +1,5 @@
 import Axios from "axios";
-import configData from "../../lib/amp-config";
+import configData from "../lib/amp-config";
 import Head from "next/head";
 
 // Next.js Pages Router AMP support
@@ -103,7 +103,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
       <Head>
         <title>Hindi News; Latest Hindi News, Breaking Hindi News Live - Lokmat Bharat</title>
         <meta name="description" content="Lokmat Bharat Hindi News Samachar - Find all Hindi News and Samachar, News in Hindi, Hindi News Headlines and Daily Breaking Hindi News Today" />
-        <link rel="canonical" href="https://lokmatbharat.com/" />
+        <link rel="canonical" href={`${configData.CANONICAL_BASE}/`} />
         <link rel="icon" href="/assets/images/favicon.ico" />
         <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
         <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
@@ -449,7 +449,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
       {/* Main Navbar */}
       <nav className="main-navbar">
         <div className="navbar-inner">
-          <a href="/amp" className="navbar-logo">
+          <a href="/" className="navbar-logo">
             {settingData?.LogoLiveUrl ? (
               <amp-img
                 src={settingData.LogoLiveUrl}
@@ -465,7 +465,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
           <ul className="nav-menu">
             {menus.slice(0, 8).map((menu, i) => (
               <li key={i}>
-                <a href={`/amp/category/${menu.Slug}`}>{menu.MenuTitle}</a>
+                <a href={`/category/${menu.Slug}`}>{menu.MenuTitle}</a>
               </li>
             ))}
           </ul>
@@ -479,7 +479,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
             <span className="marquee-label">ब्रेकिंग</span>
             <div className="marquee-scroll">
               {marqueeNews.map((news, i) => (
-                <a key={i} href={`/amp/details/${news.Slug}`} className="marquee-item">
+                <a key={i} href={`/details/${news.Slug}`} className="marquee-item">
                   {news.TitleData?.[0]?.Translation || "News"}
                 </a>
               ))}
@@ -503,7 +503,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
                 loop=""
               >
                 {homeSlider.map((slide, i) => (
-                  <a key={i} href={`/amp/details/${slide.Slug}`} className="hero-slide">
+                  <a key={i} href={`/details/${slide.Slug}`} className="hero-slide">
                     <amp-img
                       src={slide.PostFiles?.[0]?.AssetLiveUrl || "/assets/images/no-image.png"}
                       alt={slide.TitleData?.[0]?.Translation || "News"}
@@ -529,13 +529,13 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
           <div key={idx} className="content-section">
             <div className="section-header">
               <h2>{section.categoryName}</h2>
-              <a href={`/amp/category/${section.categorySlug}`}>सभी देखें →</a>
+              <a href={`/category/${section.categorySlug}`}>सभी देखें →</a>
             </div>
             {section.posts.length > 0 && (
               <div className="category-layout">
                 {/* Big Card */}
                 <div className="big-card">
-                  <a href={`/amp/details/${section.posts[0].Slug}`}>
+                  <a href={`/details/${section.posts[0].Slug}`}>
                     <div className="news-card">
                       <div className="news-card-img">
                         <span className="news-card-tag" style={{ backgroundColor: section.categoryColor }}>
@@ -559,7 +559,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
                 {/* Small Cards */}
                 <div className="small-cards">
                   {section.posts.slice(1, 5).map((post, pi) => (
-                    <a key={pi} href={`/amp/details/${post.Slug}`}>
+                    <a key={pi} href={`/details/${post.Slug}`}>
                       <div className="news-card">
                         <div className="news-card-img">
                           <amp-img
@@ -590,7 +590,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
             </div>
             <div className="news-grid">
               {featurePosts.slice(0, 8).map((news, i) => (
-                <a key={i} href={`/amp/details/${news.Slug}`}>
+                <a key={i} href={`/details/${news.Slug}`}>
                   <div className="news-card">
                     <div className="news-card-img">
                       <amp-img
@@ -641,7 +641,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
             <h4>USEFUL LINKS</h4>
             <ul className="footer-links">
               {footerMenu.map((menu, i) => (
-                <li key={i}><a href={`/amp/${menu.Slug}`}>{menu.MenuTitle}</a></li>
+                <li key={i}><a href={`/${menu.Slug}`}>{menu.MenuTitle}</a></li>
               ))}
             </ul>
           </div>
@@ -658,8 +658,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
           <div>
             <h4>Quick Links</h4>
             <ul className="footer-links">
-              <li><a href="/amp">Home</a></li>
-              <li><a href="/">View Regular Version</a></li>
+              <li><a href="/">Home</a></li>
             </ul>
           </div>
         </div>
