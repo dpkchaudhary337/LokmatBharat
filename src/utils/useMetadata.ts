@@ -70,7 +70,7 @@ export function useMetadata({
         if (imageUrl.startsWith("//")) {
           imageUrl = `https:${imageUrl}`;
         } else if (imageUrl.startsWith("/")) {
-          imageUrl = `https://lokmatbharat.com${imageUrl}`;
+          imageUrl = `https://lokmat-next-base.vercel.app${imageUrl}`;
         } else {
           // Assume it's from storage.googleapis.com
           imageUrl = `https://storage.googleapis.com${imageUrl.startsWith("/") ? "" : "/"}${imageUrl}`;
@@ -84,7 +84,7 @@ export function useMetadata({
       updateMetaTag("og:image:height", "630");
     } else {
       // Fallback to default social image
-      const defaultImage = "https://lokmatbharat.com/assets/images/social.jpg";
+      const defaultImage = "https://lokmat-next-base.vercel.app/assets/images/social.jpg";
       updateMetaTag("og:image", defaultImage);
       updateMetaTag("og:image:url", defaultImage);
     }
@@ -141,7 +141,7 @@ export function useMetadata({
         if (imageUrl.startsWith("//")) {
           imageUrl = `https:${imageUrl}`;
         } else if (imageUrl.startsWith("/")) {
-          imageUrl = `https://lokmatbharat.com${imageUrl}`;
+          imageUrl = `https://lokmat-next-base.vercel.app${imageUrl}`;
         } else {
           imageUrl = `https://storage.googleapis.com${imageUrl.startsWith("/") ? "" : "/"}${imageUrl}`;
         }
@@ -156,7 +156,7 @@ export function useMetadata({
       twitterImage.setAttribute("content", imageUrl);
     } else {
       // Fallback image for Twitter
-      const defaultImage = "https://lokmatbharat.com/assets/images/social.jpg";
+      const defaultImage = "https://lokmat-next-base.vercel.app/assets/images/social.jpg";
       let twitterImage = document.querySelector('meta[name="twitter:image"]');
       if (!twitterImage) {
         twitterImage = document.createElement("meta");

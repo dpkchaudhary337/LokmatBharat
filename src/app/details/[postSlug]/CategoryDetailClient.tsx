@@ -199,7 +199,7 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
       <Head>
         <link
           rel="amphtml"
-          href={`https://lokmatbharat.com/amp/details/${postSlug}`}
+          href={`https://lokmat-next-base.vercel.app/amp/details/${postSlug}`}
         />
       </Head>
       <section className="hero-area news-details-page home-front-area">

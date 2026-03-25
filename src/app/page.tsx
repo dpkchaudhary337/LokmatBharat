@@ -119,14 +119,14 @@ export default function HomePage() {
     title: "Hindi News; Latest Hindi News, Breaking Hindi News Live, Hindi Samachar (हिंदी समाचार), Hindi News Paper Today - Lokmat Bharat",
     description: "Lokmat Bharat Hindi News Samachar - Find all Hindi News and Samachar, News in Hindi, Hindi News Headlines and Daily Breaking Hindi News Today and Updated From lokmatbharat.com",
     keywords: normalizedKeywords,
-    url: "https://lokmatbharat.com/",
-    image: "https://lokmatbharat.com/assets/images/social.jpg",
+    url: "https://lokmat-next-base.vercel.app/",
+    image: "https://lokmat-next-base.vercel.app/assets/images/social.jpg",
   });
 
   return (
     <>
       <head>
-        <link rel="amphtml" href="https://lokmatbharat.com/amp" />
+        <link rel="amphtml" href="https://lokmat-next-base.vercel.app/amp" />
       </head>
       <Home
         homeRightSlider={homeRightSlider}

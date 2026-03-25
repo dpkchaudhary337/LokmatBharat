@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function AMPLink() {
   const pathname = usePathname();
-  const siteUrl = "https://lokmatbharat.com";
+  const siteUrl = "https://lokmat-next-base.vercel.app";
 
   useEffect(() => {
     // Don't add AMP link on AMP pages themselves

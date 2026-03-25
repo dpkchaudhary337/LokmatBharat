@@ -19,8 +19,8 @@ function SearchContent() {
       : "Search for news and articles on Lokmat Bharat",
     keywords: searchText || "Search, News",
     url: searchText 
-      ? `https://lokmatbharat.com/news-search?search=${encodeURIComponent(searchText)}`
-      : "https://lokmatbharat.com/news-search",
+      ? `https://lokmat-next-base.vercel.app/news-search?search=${encodeURIComponent(searchText)}`
+      : "https://lokmat-next-base.vercel.app/news-search",
   });
 
   return (

@@ -66,7 +66,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
       <Head>
         <title>{categoryName} - Lokmat Bharat</title>
         <meta name="description" content={`Latest ${categoryName} news on Lokmat Bharat`} />
-        <link rel="canonical" href={`https://lokmatbharat.com/category/${categorySlug}`} />
+        <link rel="canonical" href={`https://lokmat-next-base.vercel.app/category/${categorySlug}`} />
         <link rel="icon" href="/assets/images/favicon.ico" />
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
       </Head>

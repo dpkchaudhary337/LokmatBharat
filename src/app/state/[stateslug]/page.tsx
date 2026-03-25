@@ -107,7 +107,7 @@ function StatePageContent({
 
   // Set dynamic metadata
   const stateName = stateData?.CategoryName || (stateslug ? stateslug.replace(/-/g, " ") : "State");
-  const stateUrl = stateslug ? `https://lokmatbharat.com/state/${stateslug}` : "";
+  const stateUrl = stateslug ? `https://lokmat-next-base.vercel.app/state/${stateslug}` : "";
   
   useMetadata({
     title: `${stateName} News | Lokmat Bharat`,

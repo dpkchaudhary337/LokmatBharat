@@ -112,7 +112,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
       <>
         <Head>
           <title>Post Not Found | Lokmat Bharat</title>
-          <link rel="canonical" href={`https://lokmatbharat.com/details/${postSlug}`} />
+          <link rel="canonical" href={`https://lokmat-next-base.vercel.app/details/${postSlug}`} />
         </Head>
         <style jsx global>{`
           body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; background: #f5f5f5; }
@@ -146,7 +146,7 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
   const rawDescription = post.DescriptionData?.[0]?.Translation || "";
   const cleanDescription = sanitizeForAMP(rawDescription);
   const mainImage = post.PostFiles?.[0]?.AssetLiveUrl || "/assets/images/no-image.png";
-  const canonicalUrl = `https://lokmatbharat.com/details/${postSlug}`;
+  const canonicalUrl = `https://lokmat-next-base.vercel.app/details/${postSlug}`;
   const metaDescription = rawDescription.replace(/<[^>]*>/g, "").substring(0, 160);
 
   return (
