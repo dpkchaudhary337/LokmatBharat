@@ -131,21 +131,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // Redirects configuration - all redirects are permanent (301)
+  // Redirects configuration
   async redirects() {
     return [
-      // Add any custom redirects here with status: 301
-      // Redirect old /amp paths to root
-      {
-        source: '/amp',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/amp/:path*',
-        destination: '/:path*',
-        permanent: true,
-      },
+      // Add any custom redirects here
     ];
   },
 };
