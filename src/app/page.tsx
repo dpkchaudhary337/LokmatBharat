@@ -124,20 +124,25 @@ export default function HomePage() {
   });
 
   return (
-    <Home
-      homeRightSlider={homeRightSlider}
-      menus={menus}
-      marqueeNews={marqueeNews}
-      site_lang={site_lang}
-      adHeader={adHeader}
-      adRight={adRight}
-      adRight2={adRight2}
-      adRight3={adRight3}
-      adFooter={adFooter}
-      homeSlider={homeSlider}
-      todayDate={todayDate}
-      footerMenu={footerMenu}
-      settingData={settingData}
-    />
+    <>
+      <head>
+        <link rel="amphtml" href="https://lokmatbharat.com/amp" />
+      </head>
+      <Home
+        homeRightSlider={homeRightSlider}
+        menus={menus}
+        marqueeNews={marqueeNews}
+        site_lang={site_lang}
+        adHeader={adHeader}
+        adRight={adRight}
+        adRight2={adRight2}
+        adRight3={adRight3}
+        adFooter={adFooter}
+        homeSlider={homeSlider}
+        todayDate={todayDate}
+        footerMenu={footerMenu}
+        settingData={settingData}
+      />
+    </>
   );
 }

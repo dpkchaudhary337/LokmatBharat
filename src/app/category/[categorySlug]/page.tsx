@@ -56,20 +56,25 @@ export default function CategoryPage({
   });
 
   return (
-    <div>
-      {!searchText && (
-        <HeroAreaCategory 
-          adRight3={adRight3}
-          categorySlug={categorySlug}
-        />
-      )}
-      {searchText && (
-        <SearchList 
-          searchText={searchText}
-          categorySlug={categorySlug}
-        />
-      )}
-    </div>
+    <>
+      <head>
+        <link rel="amphtml" href={`https://lokmatbharat.com/amp/category/${categorySlug}`} />
+      </head>
+      <div>
+        {!searchText && (
+          <HeroAreaCategory 
+            adRight3={adRight3}
+            categorySlug={categorySlug}
+          />
+        )}
+        {searchText && (
+          <SearchList 
+            searchText={searchText}
+            categorySlug={categorySlug}
+          />
+        )}
+      </div>
+    </>
   );
 }
 

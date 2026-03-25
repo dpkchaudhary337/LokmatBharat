@@ -110,6 +110,14 @@ export async function generateMetadata({
 
 import CategoryDetailClient from "./CategoryDetailClient";
 
-export default function CategoryDetailPage({ params }: { params: Promise<{ postSlug: string }> }) {
-  return <CategoryDetailClient params={params} />;
+export default async function CategoryDetailPage({ params }: { params: Promise<{ postSlug: string }> }) {
+  const { postSlug } = await params;
+  return (
+    <>
+      <head>
+        <link rel="amphtml" href={`https://lokmatbharat.com/amp/details/${postSlug}`} />
+      </head>
+      <CategoryDetailClient params={params} />
+    </>
+  );
 }
