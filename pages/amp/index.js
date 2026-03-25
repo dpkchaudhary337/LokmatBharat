@@ -1,5 +1,5 @@
 import Axios from "axios";
-import configData from "../lib/amp-config";
+import configData from "../../lib/amp-config";
 import Head from "next/head";
 
 // Next.js Pages Router AMP support
@@ -103,7 +103,7 @@ export default function AMPHomePage({ homeSlider, marqueeNews, featurePosts, cat
       <Head>
         <title>Hindi News; Latest Hindi News, Breaking Hindi News Live - Lokmat Bharat</title>
         <meta name="description" content="Lokmat Bharat Hindi News Samachar - Find all Hindi News and Samachar, News in Hindi, Hindi News Headlines and Daily Breaking Hindi News Today" />
-        <link rel="canonical" href={`${configData.CANONICAL_BASE}/`} />
+        <link rel="canonical" href="https://lokmatbharat.com/" />
         <link rel="icon" href="/assets/images/favicon.ico" />
         <script async custom-element="amp-carousel" src="https://cdn.ampproject.org/v0/amp-carousel-0.1.js"></script>
         <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>

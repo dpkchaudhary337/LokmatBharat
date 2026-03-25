@@ -1,5 +1,5 @@
 import Axios from "axios";
-import configData from "../../lib/amp-config";
+import configData from "../../../lib/amp-config";
 import Head from "next/head";
 
 // Next.js Pages Router AMP support
@@ -66,7 +66,7 @@ export default function AMPCategoryPage({ posts, categorySlug, settingData, menu
       <Head>
         <title>{categoryName} - Lokmat Bharat</title>
         <meta name="description" content={`Latest ${categoryName} news on Lokmat Bharat`} />
-        <link rel="canonical" href={`${configData.CANONICAL_BASE}/category/${categorySlug}`} />
+        <link rel="canonical" href={`https://lokmatbharat.com/category/${categorySlug}`} />
         <link rel="icon" href="/assets/images/favicon.ico" />
         <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
       </Head>
