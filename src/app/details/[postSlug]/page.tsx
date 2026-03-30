@@ -58,10 +58,10 @@ export async function generateMetadata({
   
   // Fallback to default image if no image found
   if (!imageUrl) {
-    imageUrl = "https://lokmat-next-base.vercel.app/assets/images/social.jpg";
+    imageUrl = "https://lokmatbharat.com/assets/images/social.jpg";
   }
 
-  const url = `https://lokmat-next-base.vercel.app/details/${postSlug}`;
+  const url = `https://lokmatbharat.com/details/${postSlug}`;
   const siteName = "Lokmat Bharat";
 
   // Return metadata that completely overrides parent layout metadata
@@ -115,7 +115,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
   return (
     <>
       <head>
-        <link rel="amphtml" href={`https://lokmat-next-base.vercel.app/amp/details/${postSlug}`} />
+        <link rel="amphtml" href={`https://lokmatbharat.com/amp/details/${postSlug}`} />
       </head>
       <CategoryDetailClient params={params} />
     </>

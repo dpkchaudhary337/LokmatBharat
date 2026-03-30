@@ -121,7 +121,7 @@ export default function CustomPage({
   const pageDescription = customPageData?.DescriptionData?.[0]?.Translation 
     ? customPageData.DescriptionData[0].Translation.substring(0, 160).replace(/<[^>]*>/g, "")
     : `Read about ${slug.replace(/-/g, " ")} on Lokmat Bharat`;
-  const pageUrl = `https://lokmat-next-base.vercel.app/${slug}`;
+  const pageUrl = `https://lokmatbharat.com/${slug}`;
   
   useMetadata({
     title: `${pageTitle} | Lokmat Bharat`,

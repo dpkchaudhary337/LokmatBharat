@@ -59,7 +59,7 @@ async function getAllCategories() {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://lokmat-next-base.vercel.app';
+  const baseUrl = 'https://lokmatbharat.com';
   const currentDate = new Date();
 
   // Static pages

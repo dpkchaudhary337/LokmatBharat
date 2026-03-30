@@ -53,7 +53,7 @@ export default function CategoryPage({
 
   // Set dynamic metadata
   const categoryName = categoryData?.CategoryName || categorySlug.replace(/-/g, " ");
-  const categoryUrl = `https://lokmat-next-base.vercel.app/category/${categorySlug}${pageNumber > 1 ? `/${pageNumber}` : ""}`;
+  const categoryUrl = `https://lokmatbharat.com/category/${categorySlug}${pageNumber > 1 ? `/${pageNumber}` : ""}`;
   
   useMetadata({
     title: `${categoryName} | Lokmat Bharat`,

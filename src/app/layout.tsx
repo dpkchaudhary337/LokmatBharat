@@ -68,14 +68,14 @@ export async function generateMetadata(): Promise<Metadata> {
     typeof rawMetaTags === "string"
       ? rawMetaTags.replace(/Navtej TV/gi, "Lokmat Bharat")
       : "Lokmat Bharat";
-  const siteUrl = "https://lokmat-next-base.vercel.app/";
+  const siteUrl = "https://lokmatbharat.com/";
 
   const faviconUrl = "/assets/images/favicon.ico";
-  const socialImageUrl = "https://lokmat-next-base.vercel.app/assets/images/social.jpg";
+  const socialImageUrl = "https://lokmatbharat.com/assets/images/social.jpg";
 
   // Return minimal metadata - child pages will override with their own generateMetadata
   return {
-    metadataBase: new URL("https://lokmat-next-base.vercel.app"),
+    metadataBase: new URL("https://lokmatbharat.com"),
     title: {
       default: "Hindi News; Latest Hindi News, Breaking Hindi News Live, Hindi Samachar (हिंदी समाचार), Hindi News Paper Today - Lokmat Bharat",
       template: "%s | Lokmat Bharat",
