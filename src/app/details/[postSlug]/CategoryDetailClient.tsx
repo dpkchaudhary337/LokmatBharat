@@ -109,6 +109,74 @@ const buildTwitterEmbedUrl = (url: string | null | undefined) => {
   }
 };
 
+const extractHttpUrl = (raw: string) => {
+  const trimmed = raw.trim().replace(/&amp;/gi, "&");
+  const match = trimmed.match(/https?:\/\/[^\s<>"']+/i);
+  return match ? match[0] : trimmed;
+};
+
+/** API may send ISYoutubeEmbed, IsYoutubeEmbed, or string "1". */
+const isYoutubeEmbedFlagOn = (post: Record<string, unknown> | null | undefined) => {
+  if (!post) return false;
+  const keys = ["ISYoutubeEmbed", "IsYoutubeEmbed", "isyoutubeembed"] as const;
+  for (const k of keys) {
+    const v = post[k as keyof typeof post] as unknown;
+    if (v === true || v === 1) return true;
+    if (typeof v === "string") {
+      const s = v.trim().toLowerCase();
+      if (s === "1" || s === "true" || s === "yes") return true;
+    }
+  }
+  return false;
+};
+
+const getEmbedSocial = (post: Record<string, unknown> | null | undefined) => {
+  if (!post) return undefined;
+  const v =
+    post.EmbedSocial ?? post.embedSocial ?? post.embedsocial;
+  if (v == null || v === "") return undefined;
+  return String(v);
+};
+
+const buildYoutubeEmbedUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  try {
+    const trimmed = extractHttpUrl(String(url));
+    const withProtocol = /^https?:\/\//i.test(trimmed)
+      ? trimmed
+      : `https://${trimmed}`;
+    const parsed = new URL(withProtocol);
+    const host = parsed.hostname.toLowerCase();
+    if (!host.includes("youtube.com") && !host.includes("youtu.be")) {
+      return null;
+    }
+
+    let videoId: string | null = null;
+
+    if (host === "youtu.be" || host === "www.youtu.be") {
+      videoId = parsed.pathname.split("/").filter(Boolean)[0] ?? null;
+    } else if (parsed.pathname.startsWith("/embed/")) {
+      videoId = parsed.pathname.split("/").filter(Boolean)[1] ?? null;
+    } else if (parsed.pathname.startsWith("/shorts/")) {
+      videoId = parsed.pathname.split("/").filter(Boolean)[1] ?? null;
+    } else if (parsed.pathname.startsWith("/live/")) {
+      videoId = parsed.pathname.split("/").filter(Boolean)[1] ?? null;
+    } else {
+      videoId = parsed.searchParams.get("v");
+    }
+
+    if (!videoId) return null;
+    videoId = videoId.split(/[?&]/)[0];
+    if (!/^[a-zA-Z0-9_-]{6,}$/.test(videoId)) {
+      return null;
+    }
+
+    return `https://www.youtube.com/embed/${videoId}`;
+  } catch {
+    return null;
+  }
+};
+
 export default function CategoryDetailClient({ params }: { params: Promise<{ postSlug: string }> }) {
   const { postSlug } = use(params);
 
@@ -163,27 +231,34 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
     });
   }, [postSlug]);
 
+  const embedSocial = useMemo(() => getEmbedSocial(post), [post]);
+
   const instagramEmbedUrl = useMemo(
     () =>
       post?.ISInstagramEmbed
-        ? buildInstagramEmbedUrl(post?.EmbedSocial)
+        ? buildInstagramEmbedUrl(embedSocial)
         : null,
-    [post?.EmbedSocial, post?.ISInstagramEmbed]
+    [embedSocial, post?.ISInstagramEmbed]
   );
 
   const facebookEmbedUrl = useMemo(
     () =>
       post?.ISFacebookEmbed
-        ? buildFacebookEmbedUrl(post?.EmbedSocial)
+        ? buildFacebookEmbedUrl(embedSocial)
         : null,
-    [post?.EmbedSocial, post?.ISFacebookEmbed]
+    [embedSocial, post?.ISFacebookEmbed]
   );
 
   const twitterEmbedUrl = useMemo(
     () =>
-      post?.ISTwitterEmbed ? buildTwitterEmbedUrl(post?.EmbedSocial) : null,
-    [post?.EmbedSocial, post?.ISTwitterEmbed]
+      post?.ISTwitterEmbed ? buildTwitterEmbedUrl(embedSocial) : null,
+    [embedSocial, post?.ISTwitterEmbed]
   );
+
+  const youtubeEmbedUrl = useMemo(() => {
+    if (!post || !isYoutubeEmbedFlagOn(post)) return null;
+    return buildYoutubeEmbedUrl(embedSocial);
+  }, [post, embedSocial]);
 
   if (!post) return null;
 
@@ -330,11 +405,14 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
                         </div>
                       )}
 
-                      {(facebookEmbedUrl || instagramEmbedUrl || twitterEmbedUrl) && (
+                      {(facebookEmbedUrl ||
+                        instagramEmbedUrl ||
+                        twitterEmbedUrl ||
+                        youtubeEmbedUrl) && (
                         <div className="content">
                           {facebookEmbedUrl && (
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                              <div style={{ width: "100%", maxWidth: "640px" }}>
+                              <div style={{ width: "100%" }}>
                                 <iframe
                                   src={facebookEmbedUrl}
                                   width="100%"
@@ -350,7 +428,7 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
                           )}
                           {instagramEmbedUrl && (
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                              <div style={{ width: "100%", maxWidth: "640px" }}>
+                              <div style={{ width: "100%" }}>
                                 <iframe
                                   src={instagramEmbedUrl}
                                   width="100%"
@@ -365,7 +443,7 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
                           )}
                           {twitterEmbedUrl && (
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                              <div style={{ width: "100%", maxWidth: "640px" }}>
+                              <div style={{ width: "100%" }}>
                                 <iframe
                                   src={twitterEmbedUrl}
                                   width="100%"
@@ -373,6 +451,22 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
                                   style={{ border: "none", overflow: "hidden" }}
                                   scrolling="no"
                                   loading="lazy"
+                                  allowFullScreen
+                                />
+                              </div>
+                            </div>
+                          )}
+                          {youtubeEmbedUrl && (
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                              <div style={{ width: "100%" }}>
+                                <iframe
+                                  title="YouTube video"
+                                  src={youtubeEmbedUrl}
+                                  width="100%"
+                                  height="480"
+                                  style={{ border: "none", width: "100%" }}
+                                  loading="lazy"
+                                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                   allowFullScreen
                                 />
                               </div>

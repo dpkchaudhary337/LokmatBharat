@@ -2,6 +2,7 @@
 
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import MainMenuSubCategory from "./MainMenuSubCategory";
 import MainMenuSubCategoryTab from "./MainMenuSubCategoryTab";
 import configData from "./Config";
@@ -11,16 +12,22 @@ function CategoryWithoutChild({
   categoryName,
   GotoStatePage
 }: any) {
+  const pathname = usePathname() ?? "";
   const href = GotoStatePage
     ? `/state/${categorySlug}`
     : `${configData.BASE_URL_CATEGORY}${categorySlug}`;
+  const normalized = href.replace(/\/$/, "") || "/";
+  const isActive =
+    pathname === href ||
+    pathname === normalized ||
+    (normalized !== "/" && pathname.startsWith(`${normalized}/`));
 
   return (
     <Fragment>
       <li className="nav-item">
-        <Link 
-          href={href} 
-          className="nav-link active"
+        <Link
+          href={href}
+          className={`nav-link${isActive ? " active" : ""}`}
         >
           {categoryName}
         </Link>
@@ -39,10 +46,16 @@ function CategoryWithChild({
   onToggle,
   onClose
 }: any) {
+  const pathname = usePathname() ?? "";
   const href = GotoStatePage
     ? `/state/${categorySlug}`
     : `${configData.BASE_URL_CATEGORY}${categorySlug}`;
-  
+  const normalized = href.replace(/\/$/, "") || "/";
+  const parentActive =
+    pathname === href ||
+    pathname === normalized ||
+    (normalized !== "/" && pathname.startsWith(`${normalized}/`));
+
   const megaMenuRef = useRef<HTMLLIElement>(null);
 
   // Close dropdown when clicking outside
@@ -73,9 +86,9 @@ function CategoryWithChild({
         ref={megaMenuRef}
         className="nav-item dropdown mega-menu"
       >
-        <Link 
-          href={href} 
-          className="nav-link dropdown-toggle"
+        <Link
+          href={href}
+          className={`nav-link dropdown-toggle${parentActive ? " active" : ""}`}
           onClick={handleToggleClick}
         >
           {categoryName}
@@ -88,7 +101,7 @@ function CategoryWithChild({
           <div className="row m-0 p-0">
             <div className="col-lg-2 p-0">
               <div className="nav flex-column">
-                {childMenu.map((cMenu: any) => (
+                {childMenu.map((cMenu: any, idx: number) => (
                   <MainMenuSubCategory
                     key={cMenu.ID}
                     categoryUrl={`${configData.BASE_URL_CATEGORY}${cMenu.ID}/${cMenu.MenuTitle}`}
@@ -96,6 +109,7 @@ function CategoryWithChild({
                     dataTab={`${cMenu.ID}`}
                     categorySlug={cMenu.Slug}
                     GotoStatePage={cMenu.GotoStatePage}
+                    isDefaultActive={idx === 0}
                   />
                 ))}
               </div>

@@ -1126,9 +1126,21 @@ Logo Header Area Start
   z-index: 3;
 }
 
-.mainmenu-area .navbar #main_menu .navbar-nav .nav-link.active,
 .mainmenu-area .navbar #main_menu .navbar-nav .nav-link:hover {
   color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.mainmenu-area .navbar #main_menu .navbar-nav .nav-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: 600;
+}
+
+.mainmenu-area .navbar #main_menu .navbar-nav .nav-link:focus-visible {
+  color: #fff;
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
 }
 
 .serch-icon-area {
@@ -1245,7 +1257,8 @@ Logo Header Area Start
   .dropdown-menu
   .nav-item
   .nav-link:hover {
-  padding-left: 7px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
 }
 
 .mainmenu-area .navbar #main_menu .navbar-nav .nav-item.mega-menu .nav {
@@ -1271,8 +1284,11 @@ Logo Header Area Start
   .nav-item.mega-menu
   .nav
   .nav-link {
-  border-left: 3px solid transparent;
   padding: 7px 10px;
+  color: #fff;
+  -webkit-transition: all linear 0.3s;
+  -o-transition: all linear 0.3s;
+  transition: all linear 0.3s;
 }
 
 .mainmenu-area
@@ -1282,7 +1298,9 @@ Logo Header Area Start
   .nav-item.mega-menu
   .nav
   .nav-link:hover {
-  border-left: 3px solid #9c27b0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.14);
+  font-weight: 400;
 }
 
 .mainmenu-area
@@ -1292,7 +1310,21 @@ Logo Header Area Start
   .nav-item.mega-menu
   .nav
   .nav-link.active {
-  border-left: 3px solid #9c27b0;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.22);
+  font-weight: 400;
+}
+
+.mainmenu-area
+  .navbar
+  #main_menu
+  .navbar-nav
+  .nav-item.mega-menu
+  .nav
+  .nav-link:focus-visible {
+  color: #fff;
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
 }
 
 .navsm {
@@ -1894,6 +1926,14 @@ Logo Header Area Start
 
 .single-news-menu .content-wrapper .img {
   position: relative;
+}
+
+/* Mega menu: uniform thumbnail size for news cards */
+.mega-menu .single-news-menu .content-wrapper .img img {
+  height: 165px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .single-news-menu .content-wrapper .vid-aud {

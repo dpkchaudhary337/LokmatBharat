@@ -584,10 +584,10 @@ export default function AMPDetailPage({ post, relatedNews, postSlug, settingData
           <div className="header-right">
             <span className="header-date">{dateStr}</span>
             <div className="header-social">
-              {settingData?.FacebookLink && <a href={settingData.FacebookLink}>f</a>}
-              {settingData?.TwitterLink && <a href={settingData.TwitterLink}>t</a>}
-              {settingData?.InstagramLink && <a href={settingData.InstagramLink}>ig</a>}
-              {settingData?.YoutubeLink && <a href={settingData.YoutubeLink}>yt</a>}
+              {settingData?.FacebookLink && <a href={settingData.FacebookLink}>Facebook</a>}
+              {settingData?.TwitterLink && <a href={settingData.TwitterLink}>Twitter</a>}
+              {settingData?.InstagramLink && <a href={settingData.InstagramLink}>Instagram</a>}
+              {settingData?.YoutubeLink && <a href={settingData.YoutubeLink}>YouTube</a>}
             </div>
           </div>
         </div>
