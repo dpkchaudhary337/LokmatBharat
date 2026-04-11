@@ -10,6 +10,7 @@ import Newsletter from "@/components/Newsletter";
 import Script from "next/script";
 import Head from "next/head";
 import configData from "@/components/Config";
+import styles from "./CategoryDetailClient.module.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -181,6 +182,8 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
   const { postSlug } = use(params);
 
   const [post, setPost] = useState<any>(null);
+  const [isPostLoading, setIsPostLoading] = useState(true);
+  const [postLoadError, setPostLoadError] = useState<string | null>(null);
   const [settingData, setSettingData] = useState<any>({ YoutubeVideoURL: "" });
   const [adRight, setAdRight] = useState<any>(null);
   const [adRight2, setAdRight2] = useState<any>(null);
@@ -205,11 +208,30 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
   }, [postSlug]);
 
   useEffect(() => {
-    // Fetch post details
-    axios.get(postDetailApiUrl, axiosConfig).then((response) => {
-      const data = JSON.parse(response.data.payload);
-      setPost(data);
-    });
+    let cancelled = false;
+    setIsPostLoading(true);
+    setPostLoadError(null);
+    setPost(null);
+
+    axios
+      .get(postDetailApiUrl, axiosConfig)
+      .then((response) => {
+        if (cancelled) return;
+        try {
+          const data = JSON.parse(response.data.payload);
+          setPost(data);
+        } catch {
+          setPostLoadError("Could not read this article.");
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setPostLoadError("Could not load this article. Please try again.");
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setIsPostLoading(false);
+      });
 
     // Fetch settings
     axios.get(configData.SETTING_URL, axiosConfig).then((response) => {
@@ -229,6 +251,10 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
       setAdFooter(JSON.parse(adFooterRes.data.payload));
       setAdRight3(JSON.parse(adRight3Res.data.payload));
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [postSlug]);
 
   const embedSocial = useMemo(() => getEmbedSocial(post), [post]);
@@ -260,7 +286,31 @@ export default function CategoryDetailClient({ params }: { params: Promise<{ pos
     return buildYoutubeEmbedUrl(embedSocial);
   }, [post, embedSocial]);
 
-  if (!post) return null;
+  if (isPostLoading) {
+    return (
+      <section className="hero-area news-details-page home-front-area">
+        <div className="container">
+          <div className={styles.loadingWrap} role="status" aria-live="polite">
+            <div className={styles.spinner} aria-hidden />
+            <p className={styles.loadingText}>Loading ...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!post) {
+    return (
+      <section className="hero-area news-details-page home-front-area">
+        <div className="container">
+          <div className={styles.errorWrap}>
+            <p className={styles.errorTitle}>Something went wrong</p>
+            <p>{postLoadError || "This article could not be found."}</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const adImageRight = adRight?.pAsset?.AssetLiveUrl || "";
   const adRightLink = adRight?.AdLink || "";
